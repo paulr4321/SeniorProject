@@ -1,5 +1,10 @@
 package prim;
 
+import edu.princeton.cs.algs4.Bag;
+import edu.princeton.cs.algs4.Stack;
+import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.StdRandom;
+
 /******************************************************************************
  *  Compilation:  javac EdgeWeightedGraph.java
  *  Execution:    java EdgeWeightedGraph filename.txt

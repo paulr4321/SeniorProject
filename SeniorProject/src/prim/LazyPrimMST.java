@@ -1,5 +1,7 @@
 package prim;
 
+import edu.princeton.cs.algs4.StdOut;
+
 /******************************************************************************
  *  Compilation:  javac LazyPrimMST.java
  *  Execution:    java LazyPrimMST filename.txt

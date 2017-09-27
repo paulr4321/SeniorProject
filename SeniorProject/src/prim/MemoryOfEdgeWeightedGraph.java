@@ -10,8 +10,9 @@ package prim;
  *  56.00 + 40.00 V + 112.00 E bytes (R^2 = 1.000)
  *
  ******************************************************************************/
-
 import com.javamex.classmexer.MemoryUtil;
+import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.StdRandom;
 
 public class MemoryOfEdgeWeightedGraph {
 

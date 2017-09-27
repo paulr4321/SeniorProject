@@ -1,5 +1,8 @@
 package prim;
 
+import edu.princeton.cs.algs4.StdIn;
+import edu.princeton.cs.algs4.StdOut;
+
 /******************************************************************************
  *  Compilation:  javac UF.java
  *  Execution:    java UF < input.txt

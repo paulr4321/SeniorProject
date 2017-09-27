@@ -12,6 +12,8 @@ package prim;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import edu.princeton.cs.algs4.StdOut;
+
 /**
  *  The {@code IndexMinPQ} class represents an indexed priority queue of generic keys.
  *  It supports the usual <em>insert</em> and <em>delete-the-minimum</em>

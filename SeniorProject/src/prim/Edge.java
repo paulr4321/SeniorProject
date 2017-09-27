@@ -1,5 +1,7 @@
 package prim;
 
+import edu.princeton.cs.algs4.StdOut;
+
 /******************************************************************************
  *  Compilation:  javac Edge.java
  *  Execution:    java Edge
