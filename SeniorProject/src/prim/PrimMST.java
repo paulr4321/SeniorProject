@@ -212,7 +212,7 @@ public class PrimMST {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        In in = new In(args[0]);
+        In in = new In("test.txt");
         EdgeWeightedGraph G = new EdgeWeightedGraph(in);
         PrimMST mst = new PrimMST(G);
         for (Edge e : mst.edges()) {

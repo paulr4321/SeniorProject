@@ -43,14 +43,14 @@ public class Graph
 		int count = 0, to;
 		boolean clean;
 		int nodeTracker[]= new int[10000];
-		container = 5;
+		container = e/1000;
 		//System.out.println("test2");
 		rug.setEdge(Math.abs(random.nextInt(container + 1 - 1) + 1), from);
-		rug.setEdge(Math.abs(random.nextInt(container + 1 - 1) + 1), random.nextInt(container + 1 - 1) + 1);
+		rug.setEdge(Math.abs(random.nextInt(container + 1 - 1) + 1), from+1);
 		for(int j = 0; j <= (e/1000)-2; j++){
 			to = Math.abs(random.nextInt(container + 1 - 1) + 1);
 			//System.out.println(to);
-			from = Math.abs(random.nextInt(container + 1 - 1) + 1);
+			from = j+2;
 			nodeTracker[count]= to;
 			count++;
 			System.out.println("initialize");
@@ -80,42 +80,51 @@ public class Graph
 			count++;
 			clean = checkNode(nodeTracker, to, rug, from, container);
 			System.out.println("fozzywozzy");
-			while(clean == false){
+			while(clean == true){
 				to = Math.abs(random.nextInt(container + 1 - 1) + 1);
 				clean = checkNode(nodeTracker, to, rug, from, container);
 			}
 
 
 			System.out.println(rug.adjacencyList.size());
-
-			rug.setEdge(to, from);
-			count++;
-			container++;
+			if (to<1000 && from < 1000){
+				rug.setEdge(to, from);
+				count++;
+				container++;
+			
+			}
 		}
 		return rug;
 	}
 	public static boolean checkNode(int nodeTracker[], int to, Graph rug, int from, int container){
-		boolean boolReturn = true;
+		boolean boolReturn = false;
 		boolean control = false;
 		boolean run = false;
-		System.out.println("testK");
-		List<Integer> edgeList = rug.getEdge(to);
-		for (int i = 0; i < edgeList.size(); i++){
-			//System.out.println("testT");
-			while(control == false && run == false){
-				edgeList = rug.getEdge(to);
-				for (int j = 0;j < edgeList.size(); j++) {
+		//System.out.println("testK");
+		if (to < 1000 && from < 1000){
+			List<Integer> edgeList = rug.getEdge(to);
+			for (int i = 0; i < edgeList.size(); i++){
+				if (from > 1000 || to > 1000){
+					break;
 					
-					if(edgeList.get(j)==from){
-						System.out.println("test");
-						boolReturn = false;
-						control = true;
+				}
+				//System.out.println("testT");
+				while(control == false && run == false){
+					edgeList = rug.getEdge(to);
+					
+					for (int j = 0;j < edgeList.size(); j++) {
+						
+						if(edgeList.get(j)==from){
+							System.out.println("test");
+							boolReturn = true;
+							control = true;
+							}
+						else{
+							if(j==edgeList.size()-1){
+								control =true;
 						}
-					else{
-						if(j==edgeList.size()-1){
-							control =true;
-					}
-					
+						
+						}
 					}
 				}
 			}
@@ -129,7 +138,7 @@ public class Graph
 
 		for (int i = 1; i <= v; i++) 
 		{
-			System.out.print(i + " -> ");
+			System.out.print(i + " ");
 			List<Integer> edgeList = rug.getEdge(i);
 			if (edgeList.size() == 0)
 				System.out.print("null");
@@ -138,7 +147,7 @@ public class Graph
 				for (int j = 1;; j++) 
 				{
 					if (j != edgeList.size())
-						System.out.print(edgeList.get(j - 1) + " -> ");
+						System.out.print(edgeList.get(j - 1)+ " ");
 					else {
 						System.out.print(edgeList.get(j - 1));
 						break;
@@ -164,18 +173,22 @@ public class Graph
 
 			Graph rug = new Graph(v);
 
-			int container = 1;
+			//int container = 1;
 			int check =0;
-			int count = 5, to, from;
+			int count = 0, to, from;
 			Random random = new Random();
 			int nodeTracker[] = new int[v];
 			boolean clean;
-			from = Math.abs(random.nextInt(container + 1 - 1) + 1);
+			//from = Math.abs(random.nextInt(container + 1 - 1) + 1);
 			System.out.println("test");
+			int container = e/1000;
+			from = 1;
 			rug = initialize(e, from, container, rug);
-			container = 5;
+			from = (e/1000)+1;
+			
 			while (count < v) 
 			{
+				container++;
 				System.out.println("test");
 				from = container;
 				rug = EdgeHandler(e, from, container, rug);
