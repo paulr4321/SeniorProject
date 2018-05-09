@@ -87,7 +87,7 @@ public class Graph
 
 
 			System.out.println(rug.adjacencyList.size());
-			if (to<1000 && from < 1000){
+			if (from < 1000){
 				rug.setEdge(to, from);
 				count++;
 				container++;
@@ -104,10 +104,10 @@ public class Graph
 		if (to < 1000 && from < 1000){
 			List<Integer> edgeList = rug.getEdge(to);
 			for (int i = 0; i < edgeList.size(); i++){
-				if (from > 1000 || to > 1000){
-					break;
-					
-				}
+//				if (from > 1000 || to > 1000){
+//					break;
+//					
+//				}
 				//System.out.println("testT");
 				while(control == false && run == false){
 					edgeList = rug.getEdge(to);
@@ -188,7 +188,7 @@ public class Graph
 			
 			while (count < v) 
 			{
-				container++;
+				
 				System.out.println("test");
 				from = container;
 				rug = EdgeHandler(e, from, container, rug);
