@@ -1,5 +1,8 @@
 package prim;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,7 +41,7 @@ public class Graph
 		}
 		return adjacencyList.get(to);
 	}
-	public static Graph initialize(int e, int from, int container, Graph rug){
+	public static Graph initialize(int e, int from, int container, Graph rug, int v){
 		Random random = new Random();
 		int count = 0, to;
 		boolean clean;
@@ -53,23 +56,23 @@ public class Graph
 			from = j+2;
 			nodeTracker[count]= to;
 			count++;
-			System.out.println("initialize");
-			clean = checkNode(nodeTracker, to, rug, from, container);
+			//System.out.println("initialize");
+			clean = checkNode(nodeTracker, to, rug, from, container, v);
 			if(clean == true){
 				to = Math.abs(random.nextInt(container + 1 - 1) + 1);
-				System.out.println("test3");
+				//System.out.println("test3");
 			}
 
 
-			//System.out.println(rug.adjacencyList.size());
+			System.out.println(rug.adjacencyList.size());
 
 		}
 
 		return rug;
 
 	}
-	public static Graph EdgeHandler(int e, int from, int container, Graph rug){
-		System.out.println("testJ");
+	public static Graph EdgeHandler(int e, int from, int container, Graph rug, int v){
+		
 		Random random = new Random();
 		int count = 0, to;
 		boolean clean;
@@ -78,16 +81,16 @@ public class Graph
 			to = Math.abs(random.nextInt(container + 1 - 1) + 1);
 			nodeTracker[count]= from;
 			count++;
-			clean = checkNode(nodeTracker, to, rug, from, container);
-			System.out.println("fozzywozzy");
+			clean = checkNode(nodeTracker, to, rug, from, container, v);
+			
 			while(clean == true){
 				to = Math.abs(random.nextInt(container + 1 - 1) + 1);
-				clean = checkNode(nodeTracker, to, rug, from, container);
+				clean = checkNode(nodeTracker, to, rug, from, container, v);
 			}
 
 
-			System.out.println(rug.adjacencyList.size());
-			if (from < 1000){
+			
+			if (from < v){
 				rug.setEdge(to, from);
 				count++;
 				container++;
@@ -96,26 +99,22 @@ public class Graph
 		}
 		return rug;
 	}
-	public static boolean checkNode(int nodeTracker[], int to, Graph rug, int from, int container){
+	public static boolean checkNode(int nodeTracker[], int to, Graph rug, int from, int container, int v){
 		boolean boolReturn = false;
 		boolean control = false;
 		boolean run = false;
-		//System.out.println("testK");
-		if (to < 1000 && from < 1000){
+		
+		if (to < v && from < v){
 			List<Integer> edgeList = rug.getEdge(to);
 			for (int i = 0; i < edgeList.size(); i++){
-//				if (from > 1000 || to > 1000){
-//					break;
-//					
-//				}
-				//System.out.println("testT");
+
 				while(control == false && run == false){
 					edgeList = rug.getEdge(to);
 					
 					for (int j = 0;j < edgeList.size(); j++) {
 						
 						if(edgeList.get(j)==from){
-							System.out.println("test");
+							
 							boolReturn = true;
 							control = true;
 							}
@@ -135,9 +134,15 @@ public class Graph
 	public static void printGraph(Graph rug, int v){
 		System.out
 		.println("The Adjacency List Representation of the graph is: ");
+		Random rn = new Random();
+		double answer = rn.nextInt(10) + 1;
+		String weight;
+		
 
 		for (int i = 1; i <= v; i++) 
 		{
+			answer = rn.nextInt(10) + 1;
+			weight = Double.toString(answer/10);
 			System.out.print(i + " ");
 			List<Integer> edgeList = rug.getEdge(i);
 			if (edgeList.size() == 0)
@@ -150,25 +155,29 @@ public class Graph
 						System.out.print(edgeList.get(j - 1)+ " ");
 					else {
 						System.out.print(edgeList.get(j - 1));
+						
 						break;
 					}
 				}
 			}
+			
+			
 			System.out.println();
 		}
 
 	}
-	public static void main(String args[]) 
+	public static void main(String args[]) throws FileNotFoundException 
 	{
 		System.out.println("Enter the number of edges: ");
-
+		PrintStream printStream = new PrintStream(new FileOutputStream("test.txt"));
+		System.setOut(printStream);
 		Scanner sc = new Scanner(System.in);
 		int e = sc.nextInt();
 		try 
 		{
 			int minV = (int) Math.ceil((1 + Math.sqrt(1 + 8 * e)) / 2);
 			int maxV = e + 1;
-			int v = 1000;
+			int v = 100000;
 			System.out.println("Random graph has "+v+" vertices");
 
 			Graph rug = new Graph(v);
@@ -179,48 +188,22 @@ public class Graph
 			Random random = new Random();
 			int nodeTracker[] = new int[v];
 			boolean clean;
-			//from = Math.abs(random.nextInt(container + 1 - 1) + 1);
-			System.out.println("test");
 			int container = e/1000;
 			from = 1;
-			rug = initialize(e, from, container, rug);
+			rug = initialize(e, from, container, rug, v);
 			from = (e/1000)+1;
 			
 			while (count < v) 
 			{
-				
-				System.out.println("test");
 				from = container;
-				rug = EdgeHandler(e, from, container, rug);
+				rug = EdgeHandler(e, from, container, rug, v);
 				count++;
 				container++;
 			}
-			System.out.println("test");
+			
 			printGraph(rug,v);
 
-			//            System.out
-			//                    .println("The Adjacency List Representation of the graph is: ");
-			//
-			//            for (int i = 1; i <= v; i++) 
-			//            {
-			//                System.out.print(i + " -> ");
-			//                List<Integer> edgeList = rug.getEdge(i);
-			//                if (edgeList.size() == 0)
-			//                    System.out.print("null");
-			//                else 
-			//                {
-			//                    for (int j = 1;; j++) 
-			//                    {
-			//                        if (j != edgeList.size())
-			//                            System.out.print(edgeList.get(j - 1) + " -> ");
-			//                        else {
-			//                            System.out.print(edgeList.get(j - 1));
-			//                            break;
-			//                        }
-			//                    }
-			//                }
-			//                System.out.println();
-			//            }
+
 		} 
 		catch (Exception E) 
 		{

@@ -1,5 +1,9 @@
 package prim;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+
 import edu.princeton.cs.algs4.Bag;
 import edu.princeton.cs.algs4.Stack;
 import edu.princeton.cs.algs4.StdOut;
@@ -257,9 +261,12 @@ public class EdgeWeightedGraph {
      * Unit tests the {@code EdgeWeightedGraph} data type.
      *
      * @param args the command-line arguments
+     * @throws FileNotFoundException 
      */
-    public static void main(String[] args) {
-        In in = new In(args[0]);
+    public static void main(String[] args) throws FileNotFoundException {
+        In in = new In("test.txt");
+        PrintStream printStream = new PrintStream(new FileOutputStream("edgeWeighted.txt"));
+		System.setOut(printStream);
         EdgeWeightedGraph G = new EdgeWeightedGraph(in);
         StdOut.println(G);
     }
