@@ -212,13 +212,17 @@ public class PrimMST {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
+    	long startTime = System.currentTimeMillis();
+    	
         In in = new In("test.txt");
         EdgeWeightedGraph G = new EdgeWeightedGraph(in);
         PrimMST mst = new PrimMST(G);
         for (Edge e : mst.edges()) {
             StdOut.println(e);
         }
-        StdOut.printf("%.5f\n", mst.weight());
+        long endTime = System.currentTimeMillis();
+        long duration = (endTime - startTime);
+        System.out.println(duration);
     }
 
 

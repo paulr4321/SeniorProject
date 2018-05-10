@@ -47,20 +47,16 @@ public class Graph
 		boolean clean;
 		int nodeTracker[]= new int[10000];
 		container = e/1000;
-		//System.out.println("test2");
 		rug.setEdge(Math.abs(random.nextInt(container + 1 - 1) + 1), from);
 		rug.setEdge(Math.abs(random.nextInt(container + 1 - 1) + 1), from+1);
 		for(int j = 0; j <= (e/1000)-2; j++){
 			to = Math.abs(random.nextInt(container + 1 - 1) + 1);
-			//System.out.println(to);
 			from = j+2;
 			nodeTracker[count]= to;
 			count++;
-			//System.out.println("initialize");
 			clean = checkNode(nodeTracker, to, rug, from, container, v);
 			if(clean == true){
 				to = Math.abs(random.nextInt(container + 1 - 1) + 1);
-				//System.out.println("test3");
 			}
 
 
